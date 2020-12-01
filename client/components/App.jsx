@@ -12,15 +12,17 @@ const App = (props) => {
   const [ recog, setRecog ] = useState()
   const recognition = new SpeechRecognition()
   recognition.continuous = true
+  const synth = window.speechSynthesis
 
   useEffect(() => {
     // props.dispatch(fetchFruits())
-    const synth = window.speechSynthesis
+  },[])
+
+  const readThePara = () => {
     const speechText = document.getElementById('speech').textContent
     const utterThis = new SpeechSynthesisUtterance(speechText)
     synth.speak(utterThis)
-  },[])
-
+  }
   const startRecog = () => {
     setRecog()
     console.log('start recog')
@@ -47,6 +49,7 @@ const App = (props) => {
         <p id="speech">
           This is the thing that my app will say
         </p>
+        <button onClick={() => readThePara()}>Read paragraph</button>
         <p>And I replied with:<br/>
           {recog}
         </p>
